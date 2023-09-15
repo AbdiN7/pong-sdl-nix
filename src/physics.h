@@ -7,34 +7,39 @@ void Game::CheckCollision() {
   //// COLLIDE WITH PADDLE
   if (abs(distance - mPaddle.width) <= mPaddle.width && mBall.vel.x < 0.0f &&
       mBall.pos.x <= THICKNESS + mPaddle.pos.x && mBall.pos.x >= 0.0f) {
+        // Paddle is moving up: (W key)
     if (mPaddle.move < 0) {
       if (mBall.vel.y >= 0.0f) {
         mBall.vel.x *= -1.5f;
         mBall.vel.y *= -0.5f;
       } else {
-        mBall.vel.y *= 1.5f;
+        mBall.vel.y *= 2.2f;
         mBall.vel.x *= -1.5f;
       }
-    } else if (mPaddle.move > 0) {
+      
+    }// Paddle is moving down: (S key) 
+    else if (mPaddle.move > 0) {
       if (mBall.vel.y <= 0.0f) {
         mBall.vel.x *= -1.5f;
         mBall.vel.y *= -0.5f;
       } else {
-        mBall.vel.y *= 1.5f;
+        mBall.vel.y *= 2.2f;
         mBall.vel.x *= -1.5f;
       }
-    } else {
-      mBall.vel.x *= -0.8f;
+    } 
+    else {
+      mBall.vel.x *= -0.95f;
+      mBall.vel.y *= -0.95f;
     }
   }
 
   // //// Collide with top wall
   if (mBall.pos.y <= THICKNESS && mBall.vel.y < 0.0f) {
-    mBall.vel.y *= -1.0f;
+    mBall.vel.y *= -1.01f;
   }
   //// Collide with Right wall
   if (mBall.pos.x >= WINDOW_W - THICKNESS && mBall.vel.x > 0.0f) {
-    mBall.vel.x *= -1.0f;
+    mBall.vel.x *= -1.01f;
   }
   // //DEBUG:
   // Collide with Left wall
@@ -44,7 +49,7 @@ void Game::CheckCollision() {
 
   ///// Collide with bottom wall
   if (mBall.pos.y >= WINDOW_H - THICKNESS && mBall.vel.y > 0.0f) {
-    mBall.vel.y *= -1.0f;
+    mBall.vel.y *= -1.01f;
   }
 
   // TODO: add a keybind to perform the reset of the ball
@@ -57,11 +62,11 @@ void Game::CheckCollision() {
   }
   // Ball moving too slow
   if (mBall.vel.x <= 230.0f && mBall.vel.x >= -230.0f ) {
-    mBall.vel.x *= 1.10f;
+    mBall.vel.x *= 1.30f;
   }
   // Ball moving too fast
   if (mBall.vel.x >= 900.0f || mBall.vel.x <= -900.0f) {
-    mBall.vel.x *=0.2f;
+    mBall.vel.x *=0.3f;
   }
 }
 
